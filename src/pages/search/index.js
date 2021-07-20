@@ -5,8 +5,6 @@ import { Ionicons } from '@expo/vector-icons';
 import * as yup from 'yup';
 import { PhoneMask } from '../../components/PhoneMask';
 import { CpfMask } from '../../components/CpfMask';
-import { formatTel } from '../../components/TextFormat/formatTel';
-import { formatCpf } from '../../components/TextFormat/formatCpf';
 import { Formik } from 'formik';
 
 export default function Search() {
@@ -37,7 +35,7 @@ export default function Search() {
     const [id, setId] = useState();
 
     async function viewClient(obj) {
-        
+
         const data = await api.get('/client/' + obj)
         setInitialName(data.data.name)
         setInitialCpf(data.data.cpf)
@@ -54,8 +52,6 @@ export default function Search() {
         tel: initialTel
     }
 
-    console.log('initialName', initialName);
-
     const ReviewSchema = yup.object({
         name: yup
             .string()
@@ -63,7 +59,8 @@ export default function Search() {
         cpf: yup.
             string()
             .required('Insira seu CPF.')
-            .matches(/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/, 'Insira seu CPF.'),
+            .min(11, 'Confirme seu CPF')
+            .max(11, 'Confirme seu CPF'),
         email: yup
             .string()
             .required('Insira seu e-mail.')
@@ -71,7 +68,8 @@ export default function Search() {
         tel: yup
             .string()
             .required('Insira seu telefone.')
-            .matches(/^\(?[1-9]{2}\)? ?(?:[2-8]|9[1-9])[0-9]{3}\-?[0-9]{4}$/, 'Insira seu telefone.'),
+            .min(14, 'Confirme seu telefone')
+            .max(14, 'Confirme seu telefone'),
     })
 
     const renderItem = (data) => (
@@ -120,22 +118,16 @@ export default function Search() {
                         <Formik
                             initialValues={initialValues}
                             onSubmit={async (values, { resetForm }) => {
-                                setFormatedCpf(values.cpf)
-                                setFormatedTel(values.tel)
-
-                                const formated_cpf = formatCpf(cpf)
-                                const formated_tel = formatTel(tel)
-
-                                const response = await api.put('/client/' + (id), {
+                                await api.put('/client/' + (id), {
                                     name: (values.name),
-                                    cpf: formated_cpf,
+                                    cpf: (values.cpf),
                                     email: (values.email),
-                                    tel: formated_tel
+                                    tel: (values.tel)
                                 })
                                     .then((res) => {
                                         Alert.alert(
-                                            'Cadastro realizado!',
-                                            `O cliente ${values.name} foi cadastrado no sistema com sucesso.`,
+                                            'Edição de cliente',
+                                            `O cliente foi editado com sucesso.`,
                                             [
                                                 {
                                                     text: "Criar Outro",
@@ -152,8 +144,14 @@ export default function Search() {
                             validationSchema={ReviewSchema}>
                             {(props) => (
                                 <View>
-                                    <Text style={styles.title}>Cadastro de cliente</Text>
-                                    <Text style={styles.subtitle}>Informe os dados abaixo para criar um novo cliente.</Text>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <Text style={styles.title}>Editar</Text>
+                                        <TouchableOpacity onPress={() => setVisible(false)}>
+                                            <Ionicons name="close" size={24} color="#DC3545" />
+                                        </TouchableOpacity>
+                                    </View>
+
+                                    <Text style={styles.subtitle}>Edite os dados do cliente alterando os campos abaixo.</Text>
 
                                     {
                                         props.errors.name + props.errors.cpf + props.errors.email + props.errors.tel ?
@@ -182,7 +180,7 @@ export default function Search() {
                                         </TouchableOpacity>
 
                                         <TouchableOpacity style={styles.button} onPress={props.handleSubmit}>
-                                            <Text style={{ color: "#fff", fontSize: 16 }}>Cadastrar</Text>
+                                            <Text style={{ color: "#fff", fontSize: 16 }}>Confirmar edição</Text>
                                         </TouchableOpacity>
                                     </View>
                                 </View>

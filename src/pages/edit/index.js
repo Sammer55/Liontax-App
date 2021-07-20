@@ -6,13 +6,11 @@ import { Ionicons } from '@expo/vector-icons';
 
 export default function Edit(res) {
 
-    const [client, setClient] = useState([]);
-
     return (
         <View style={styles.container}>
             <View style={styles.card}>
                 <Formik
-                    initialValues={{ name: res.route.params.name, cpf: res.route.params.cpf, email: res.route.params.email, tel: res.route.params.tel }}
+                    initialValues={{ name: res.route.params.name, cpf: res.route.params.cpf, email: res.route.params.email, tel: telDeform }}
                     onSubmit={async (values) => {
                         const response = await api.put('/client/' + (values.route.params.id), {
                             name: (values.name),

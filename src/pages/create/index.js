@@ -6,8 +6,6 @@ import { Ionicons } from '@expo/vector-icons';
 import * as yup from 'yup';
 import { PhoneMask } from '../../components/PhoneMask';
 import { CpfMask } from '../../components/CpfMask';
-import { formatTel } from '../../components/TextFormat/formatTel';
-import { formatCpf } from '../../components/TextFormat/formatCpf';
 
 export default function Create() {
 
@@ -33,11 +31,11 @@ export default function Create() {
         tel: yup
             .string()
             .required('Insira seu telefone.')
-            .matches(/^\(?[1-9]{2}\)? ?(?:[2-8]|9[1-9])[0-9]{3}\-?[0-9]{4}$/, 'Insira seu telefone.'),
+            .min(14, 'Insira seu telefone.')
+            .max(14, 'Insira seu telefone.')
     })
 
     const [cpf, setFormatedCpf] = useState();
-    const [tel, setFormatedTel] = useState();
 
     return (
         <View style={styles.container}>
@@ -45,17 +43,11 @@ export default function Create() {
                 <Formik
                     initialValues={initialValues}
                     onSubmit={async (values, { resetForm }) => {
-                        setFormatedCpf(values.cpf)
-                        setFormatedTel(values.tel)
-
-                        const formated_cpf = formatCpf(cpf)
-                        const formated_tel = formatTel(tel)
-
-                        const response = await api.post('/client', {
+                        await api.post('/client', {
                             name: (values.name),
-                            cpf: formated_cpf,
+                            cpf: (values.cpf),
                             email: (values.email),
-                            tel: formated_tel
+                            tel: (values.tel)
                         })
                             .then((res) => {
                                 Alert.alert(
