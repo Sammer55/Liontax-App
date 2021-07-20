@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { TextInputMask } from 'react-native-masked-text';
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import { TextInputMask } from "react-native-masked-text";
 
 export function PhoneMask({ value, onChangeText }) {
 
@@ -9,8 +9,8 @@ export function PhoneMask({ value, onChangeText }) {
             <TextInputMask
                 style={styles.textInput}
                 placeholder="Ex: (00) 0000-0000"
-                keyboardType='number-pad'
-                type='custom'
+                keyboardType="number-pad"
+                type="custom"
                 value={value}
                 onChangeText={onChangeText}
                 options={{ mask: "+5599999999999" }}
@@ -21,7 +21,7 @@ export function PhoneMask({ value, onChangeText }) {
 
 const styles = StyleSheet.create({
     textInput: {
-        borderColor: '#c5c5c5',
+        borderColor: "#c5c5c5",
         borderWidth: 1,
         borderRadius: 5,
         paddingVertical: 6,

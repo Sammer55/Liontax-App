@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
-import { Formik } from 'formik';
-import api from '../../service/api';
-import { Ionicons } from '@expo/vector-icons';
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from "react-native";
+import { Formik } from "formik";
+import api from "../../service/api";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function Edit(res) {
 
@@ -12,7 +12,7 @@ export default function Edit(res) {
                 <Formik
                     initialValues={{ name: res.route.params.name, cpf: res.route.params.cpf, email: res.route.params.email, tel: telDeform }}
                     onSubmit={async (values) => {
-                        const response = await api.put('/client/' + (values.route.params.id), {
+                        const response = await api.put("/client/" + (values.route.params.id), {
                             name: (values.name),
                             cpf: (values.cpf),
                             email: (values.email),
@@ -20,7 +20,7 @@ export default function Edit(res) {
                         })
                             .then((res) => {
                                 Alert.alert(
-                                    'Edição concluída!',
+                                    "Edição concluída!",
                                     `O cliente ${values.name} foi alterado com sucesso.`,
                                     [
                                         {
@@ -38,18 +38,18 @@ export default function Edit(res) {
                             <Text style={styles.subtitle}>Altere os dados do cliente editando os campos abaixo</Text>
 
                             <Text style={styles.label}>Nome</Text>
-                            <TextInput value={props.values.name} onChangeText={props.handleChange('name')} style={styles.input} placeholder="Ex: Fulano de Tal" />
+                            <TextInput value={props.values.name} onChangeText={props.handleChange("name")} style={styles.input} placeholder="Ex: Fulano de Tal" />
 
                             <Text style={styles.label}>CPF</Text>
-                            <TextInput value={props.values.cpf} onChangeText={props.handleChange('cpf')} style={styles.input} placeholder="Ex: 000.000.000-00" />
+                            <TextInput value={props.values.cpf} onChangeText={props.handleChange("cpf")} style={styles.input} placeholder="Ex: 000.000.000-00" />
 
                             <Text style={styles.label}>Email</Text>
-                            <TextInput value={props.values.email} onChangeText={props.handleChange('email')} style={styles.input} placeholder="Ex: fulanodetal@gmail.com" />
+                            <TextInput value={props.values.email} onChangeText={props.handleChange("email")} style={styles.input} placeholder="Ex: fulanodetal@gmail.com" />
 
                             <Text style={styles.label}>Telefone</Text>
-                            <TextInput value={props.values.tel} onChangeText={props.handleChange('tel')} style={styles.input} placeholder="Ex: (00) 0000-0000" />
+                            <TextInput value={props.values.tel} onChangeText={props.handleChange("tel")} style={styles.input} placeholder="Ex: (00) 0000-0000" />
 
-                            <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+                            <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
                                 <TouchableOpacity style={styles.button} onPress={props.handleReset}>
                                     <Ionicons name="md-trash-sharp" size={24} color="#fff" />
                                 </TouchableOpacity>
@@ -69,8 +69,8 @@ export default function Edit(res) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: "center",
+        justifyContent: "center",
     },
 
     button: {
@@ -78,8 +78,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#DC3545",
         marginTop: 15,
         borderRadius: 5,
-        alignItems: 'center',
-        justifyContent: 'center'
+        alignItems: "center",
+        justifyContent: "center"
     },
 
     buttonClear: {
@@ -87,8 +87,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#000",
         marginTop: 15,
         borderRadius: 5,
-        alignItems: 'center',
-        justifyContent: 'center'
+        alignItems: "center",
+        justifyContent: "center"
     },
 
     input: {
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
 
     subtitle: {
         fontSize: 20,
-        color: '#c5c5c5'
+        color: "#c5c5c5"
     },
 
     label: {
@@ -116,13 +116,13 @@ const styles = StyleSheet.create({
     },
 
     card: {
-        width: '80%',
-        height: '80%',
+        width: "80%",
+        height: "80%",
         borderRadius: 10,
         paddingVertical: 30,
         paddingHorizontal: 25,
         borderWidth: 2,
         borderColor: "#c5c5c5",
-        backgroundColor: '#fff'
+        backgroundColor: "#fff"
     }
 });

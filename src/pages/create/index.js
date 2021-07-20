@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
-import { Formik } from 'formik';
-import api from '../../service/api';
-import { Ionicons } from '@expo/vector-icons';
-import * as yup from 'yup';
-import { PhoneMask } from '../../components/PhoneMask';
-import { CpfMask } from '../../components/CpfMask';
+import React, { useState } from "react";
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from "react-native";
+import { Formik } from "formik";
+import api from "../../service/api";
+import { Ionicons } from "@expo/vector-icons";
+import * as yup from "yup";
+import { PhoneMask } from "../../components/PhoneMask";
+import { CpfMask } from "../../components/CpfMask";
 
 export default function Create() {
 
@@ -19,20 +19,20 @@ export default function Create() {
     const ReviewSchema = yup.object({
         name: yup
             .string()
-            .required('Insira seu nome para continuar.'),
+            .required("Insira seu nome para continuar."),
         cpf: yup.
             string()
-            .required('Insira seu CPF.')
-            .matches(/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/, 'Insira seu CPF.'),
+            .required("Insira seu CPF.")
+            .matches(/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/, "Insira seu CPF."),
         email: yup
             .string()
-            .required('Insira seu e-mail.')
-            .email('Insira seu e-mail.'),
+            .required("Insira seu e-mail.")
+            .email("Insira seu e-mail."),
         tel: yup
             .string()
-            .required('Insira seu telefone.')
-            .min(14, 'Insira seu telefone.')
-            .max(14, 'Insira seu telefone.')
+            .required("Insira seu telefone.")
+            .min(14, "Insira seu telefone.")
+            .max(14, "Insira seu telefone.")
     })
 
     const [cpf, setFormatedCpf] = useState();
@@ -43,7 +43,7 @@ export default function Create() {
                 <Formik
                     initialValues={initialValues}
                     onSubmit={async (values, { resetForm }) => {
-                        await api.post('/client', {
+                        await api.post("/client", {
                             name: (values.name),
                             cpf: (values.cpf),
                             email: (values.email),
@@ -51,7 +51,7 @@ export default function Create() {
                         })
                             .then((res) => {
                                 Alert.alert(
-                                    'Cadastro realizado!',
+                                    "Cadastro realizado!",
                                     `O cliente ${values.name} foi cadastrado no sistema com sucesso.`,
                                     [
                                         {
@@ -75,25 +75,25 @@ export default function Create() {
                             {
                                 props.errors.name + props.errors.cpf + props.errors.email + props.errors.tel ?
                                     <View style={styles.error}>
-                                        <Ionicons name='warning' size={24} color='#fff' />
-                                        <Text style={{ color: '#fff', fontSize: 16 }}> {props.errors.name || props.errors.cpf || props.errors.email || props.errors.tel} </Text>
+                                        <Ionicons name="warning" size={24} color="#fff" />
+                                        <Text style={{ color: "#fff", fontSize: 16 }}> {props.errors.name || props.errors.cpf || props.errors.email || props.errors.tel} </Text>
                                     </View> :
                                     <View style={styles.noError} />
                             }
 
                             <Text style={styles.label}>Nome</Text>
-                            <TextInput autoCapitalize="characters" value={props.values.name} onChangeText={props.handleChange('name')} style={styles.input} placeholder="Ex: Fulano de Tal" />
+                            <TextInput autoCapitalize="characters" value={props.values.name} onChangeText={props.handleChange("name")} style={styles.input} placeholder="Ex: Fulano de Tal" />
 
                             <Text style={styles.label}>CPF</Text>
-                            <CpfMask value={props.values.cpf} onChangeText={props.handleChange('cpf')} />
+                            <CpfMask value={props.values.cpf} onChangeText={props.handleChange("cpf")} />
 
                             <Text style={styles.label}>Email</Text>
-                            <TextInput value={props.values.email} onChangeText={props.handleChange('email')} style={styles.input} placeholder="Ex: fulanodetal@gmail.com" />
+                            <TextInput value={props.values.email} onChangeText={props.handleChange("email")} style={styles.input} placeholder="Ex: fulanodetal@gmail.com" />
 
                             <Text style={styles.label}>Telefone</Text>
-                            <PhoneMask value={props.values.tel} onChangeText={props.handleChange('tel')} />
+                            <PhoneMask value={props.values.tel} onChangeText={props.handleChange("tel")} />
 
-                            <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+                            <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
                                 <TouchableOpacity style={styles.buttonClear} onPress={props.handleReset}>
                                     <Ionicons name="md-trash-sharp" size={24} color="#fff" />
                                 </TouchableOpacity>
@@ -113,8 +113,8 @@ export default function Create() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: "center",
+        justifyContent: "center",
     },
 
     button: {
@@ -122,8 +122,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#000",
         marginTop: 15,
         borderRadius: 5,
-        alignItems: 'center',
-        justifyContent: 'center'
+        alignItems: "center",
+        justifyContent: "center"
     },
 
     buttonClear: {
@@ -131,8 +131,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#DC3545",
         marginTop: 15,
         borderRadius: 5,
-        alignItems: 'center',
-        justifyContent: 'center'
+        alignItems: "center",
+        justifyContent: "center"
     },
 
     input: {
@@ -146,22 +146,22 @@ const styles = StyleSheet.create({
     },
 
     error: {
-        backgroundColor: '#DC3545',
+        backgroundColor: "#DC3545",
         borderRadius: 5,
         paddingVertical: 7,
-        justifyContent: 'center',
+        justifyContent: "center",
         marginTop: 3,
-        flexDirection: 'row',
-        alignItems: 'center',
+        flexDirection: "row",
+        alignItems: "center",
         marginTop: 10
     },
 
     noError: {},
 
     terms: {
-        flexDirection: 'row',
-        alignContent: 'center',
-        alignItems: 'center',
+        flexDirection: "row",
+        alignContent: "center",
+        alignItems: "center",
         marginTop: 10
     },
 
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
 
     subtitle: {
         fontSize: 20,
-        color: '#c5c5c5'
+        color: "#c5c5c5"
     },
 
     label: {
@@ -180,13 +180,13 @@ const styles = StyleSheet.create({
     },
 
     card: {
-        width: '80%',
-        height: '80%',
+        width: "80%",
+        height: "80%",
         borderRadius: 10,
         paddingVertical: 30,
         paddingHorizontal: 25,
         borderWidth: 2,
         borderColor: "#c5c5c5",
-        backgroundColor: '#fff'
+        backgroundColor: "#fff"
     }
 });
