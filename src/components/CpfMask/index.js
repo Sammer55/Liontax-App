@@ -8,9 +8,10 @@ export function CpfMask({ value, onChangeText }) {
             <TextInputMask
                 style={styles.textInput}
                 placeholder='Ex: 000.000.000-00'
-                type='cpf'
+                type='custom'
                 value={value}
                 onChangeText={onChangeText}
+                options={{ mask: "99999999999" }}
             />
         </View>
     )

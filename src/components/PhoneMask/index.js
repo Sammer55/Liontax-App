@@ -10,10 +10,10 @@ export function PhoneMask({ value, onChangeText }) {
                 style={styles.textInput}
                 placeholder="Ex: (00) 0000-0000"
                 keyboardType='number-pad'
-                type='cel-phone'
+                type='custom'
                 value={value}
                 onChangeText={onChangeText}
-                options={{ maskType: 'BRL', withDDD: true, dddMask: '(99) ' }}
+                options={{ mask: "+5599999999999" }}
             />
         </View>
     )
